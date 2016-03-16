@@ -8,10 +8,7 @@ function createPerson(firstName, lastName, age, isFemale){
 }
 
 var people = [1,2,3,4,5,6,7,8,9,10].map(function(_,i){
-	return createPerson('Jesy' + i,
-						'Lee' + i,
-						21 + i,
-						Boolean(i % 2));
+	return createPerson('Jesy' + i, 'Lee' + i, 21 + i, Boolean(i % 2));
 });
 
 people.forEach(function(person){
