@@ -82,21 +82,7 @@ if (!Array.prototype.find) {
                 }
             };
         }
-/*
-function findYoungestMale(people) {
-    var person = people
-        .sort(function (item1, item2) {
-            return item1.age - item2.age;
-        })
-        .find(function (item) {
-            return !item.isFemale;
-        });
-
-    return person.firstName + ' ' + person.lastName + ' with age of ' + person.age;
-}
-
-console.log('\nTASK 5: ');
-console.log('The youngest person is ' + findYoungestMale(people));  */ 
+ 
 
 function theYoungestMale(people){
 	var person = people.sort(function(a, b){
