@@ -12,39 +12,36 @@ Any of the function params is not as described
 Any of the contents is neither string nor number
 In that case, the content of the element must not be changed*/
 
-module.exports = function () {
+function getElement(element, contents) {
 
-  return function (element, contents) {
+    if (typeof(element) === 'string') {
+        element = document.getElementById(element);
+        if (!element) {
+            throw new Error('There is no element with this Id');
+        }
+    } else if (!(element === HTMLElement)) {
+        throw new Error('Invalid HTML element');
+    }
 
-  	if (typeof(element) === 'string') {
-  		element = document.getElementById(element);
-  		if (!element) {
-  			throw new Error('There is no element with this Id');
-  		}
-  	} else if (!(element === HTMLElement)) {
-  		throw new Error('Invalid HTML element');
-  	}
+    if (!(contents instanceof Array)) {
+        throw new Error('Must put an array');
+    } else if (isNaN(contents.length)) {
+        throw new Error('array is empty');
+    }
 
-  	if (!(contents instanceof Array)) {
-  		throw new Error('Must put an array');
-  	} else if (isNaN(contents.length)) {
-  		throw new Error('array is empty');
-  	}
+    var docFrag = document.createDocumentFragment(),
+        divElement = document.createElement('div');
 
-  	var docFrag = document.createDocumentFragment(),
-  		divElement = document.createElement('div');
+    for (var i = 0; len = contents.length, i < len; i += 1) {
+        var currentDiv = divElement.cloneNode(true);
+        var content = contents[i];
+        if (typeof(content) !== 'string' || typeof(content) !== 'number') {
+            throw new Error('Invalid content');
+        }
+        currentDiv.innerHTML = content;
+        docFrag.appendChild(currentDiv);
+    }
 
-  	for (var i = 0; len = contents.length, i < len; i += 1)	{
-  		var currentDiv = divElement.cloneNode(true);
-  		var content = contents[i];
-  		if (typeof(content) !== 'string' || typeof(content) !== 'number') {
-  			throw new Error('Invalid content');
-  		}
-  		currentDiv.innerHTML = content;
-  		docFrag.appendChild(currentDiv);
-  	}
-
-  	element.innerHTML = '';
-  	element.appendChild(docFrag);
-  };
-};
+    element.innerHTML = '';
+    element.appendChild(docFrag);
+}
